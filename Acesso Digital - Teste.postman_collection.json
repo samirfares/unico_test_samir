@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "710174be-919a-4296-8bd6-1399994ef37f",
+		"name": "Acesso Digital - Teste",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "[GET] Health status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.69.203.102/api/health",
+					"protocol": "http",
+					"host": [
+						"34",
+						"69",
+						"203",
+						"102"
+					],
+					"path": [
+						"api",
+						"health"
+					]
+				},
+				"description": "Receive the sheet, save it on redis, for further analysis/send.\nReturn all columns names of the sheet."
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] Envelope",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "document",
+							"type": "file",
+							"src": "/Users/samirfares/Documents/img20200802_00040586.pdf"
+						},
+						{
+							"key": "name",
+							"value": "Samir Riad Varandas Fares",
+							"type": "text"
+						},
+						{
+							"key": "cpf",
+							"value": "36956288800",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.69.203.102/api/envelope",
+					"protocol": "http",
+					"host": [
+						"34",
+						"69",
+						"203",
+						"102"
+					],
+					"path": [
+						"api",
+						"envelope"
+					]
+				},
+				"description": "Receive the sheet, save it on redis, for further analysis/send.\nReturn all columns names of the sheet."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fb965e6c-07dd-4aa7-95da-9259461fc933",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c072304a-8c29-4448-9d34-1bc522b15068",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
