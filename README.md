@@ -1,39 +1,66 @@
-#Teste processo seletivo Unico.
+# Teste processo seletivo Unico.
 
 ---
 
-##Requisitos
+## Requisitos
 
 NodeJS: v10 ou superior - https://nodejs.org/en/
 RedisServer v5 ou superior - https://redis.io/topics/quickstart
 
-##Instruções
+A aplicação roda localmente por padrão na porta 8080.
 
-### Instalar dependências do package.json rodando o comando (na root do projeto):
+## Instruções
 
-```npm install```
+### Navegar para a root do projeto
+```sh
+cd teste_unico_samir
+```
+
+### Instalar dependências do package.json rodando o comando:
+
+```sh
+npm install
+```
 
 
-### Rodar a aplicação (na root do projeto):
+### Criar pastas credentials e documents dentro da root do projeto:
 
-```npm start```
+```sh
+mkdir credentials
+mkdir documents
+```
+
+### Criar um arquivo .env semelhante ao .env.example e setar as urls e credenciais (omitinndo por segurança)
+```
+SERVICE_ACCOUNT=xxxxxxx
+TENANT=xxxxxxxxxx
+IDENTITY_URL=https://xxxxxx.io
+ACESSO_SERVICE_API_URL=https://xxxxxxx/api/v1/service
+```
+
+
+### Rodar a aplicação:
+
+```sh
+npm start
+```
 
 ---
 
-##Endpoints
+## Endpoints
 
 
-###[GET] ../api/health
+### [GET] ../api/health
     Informa se a aplicação está rodando.
 
-######Request
+###### Request
 
 ```sh
-curl --location --request GET 'http://localhost:8080/api/health' \
+curl --location --request GET 'http://34.69.203.102/api/health' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUzLCJpYXQiOjE2MDczNjkwMTEsImV4cCI6MTYwNzQ1NTQxMX0.mbw5lEMo0b-APn28yd-C0b82xwWXl5dT3Lm2eK4UrDI'
 ```
 
-######Response
+###### Response
 ```json
     {
         status: 200,
@@ -41,19 +68,19 @@ curl --location --request GET 'http://localhost:8080/api/health' \
     }
 ```
 
-###[POST] ../api/envelope
+### [POST] ../api/envelope
 
-######Request
+###### Request
 
 ```sh
-curl --location --request POST 'http://localhost:8080/api/envelope' \
+curl --location --request POST 'http://34.69.203.102/api/envelope' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUzLCJpYXQiOjE2MDczNjkwMTEsImV4cCI6MTYwNzQ1NTQxMX0.mbw5lEMo0b-APn28yd-C0b82xwWXl5dT3Lm2eK4UrDI' \
 --form 'document=@"/Users/samirfares/Documents/img20200802_00040586.pdf"' \
 --form 'name="Samir Riad Varandas Fares"' \
 --form 'cpf="36956288800"'
 ```
 
-######Response
+###### Response
 ```json
  {
     "status": 200,

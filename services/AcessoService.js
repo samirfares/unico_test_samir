@@ -5,6 +5,8 @@ const path = require('path')
 const jwtService = require('./JwtService')
 const redisService = require('./RedisService')
 
+
+//Wrapper to Unico auth API 
 async function auth() {
     let options = {
         serviceAccount: process.env.SERVICE_ACCOUNT,
@@ -13,7 +15,7 @@ async function auth() {
     }
 
     let cache = await redisService.get(options.serviceAccount);
-    if(cache)
+    if (cache)
         return cache;
 
     const requestBody = {
@@ -28,7 +30,7 @@ async function auth() {
     }
     try {
         let result = await axios.post(`${options.basePath}/oauth2/token`, qs.stringify(requestBody), config);
-        redisService.set(options.serviceAccount,result.data, result.data.expires_in)
+        redisService.set(options.serviceAccount, result.data, result.data.expires_in)
         return result.data;
 
     } catch (err) {
@@ -36,6 +38,7 @@ async function auth() {
     }
 
 }
+//Wrapper to Unico envelope API 
 
 async function envelope({
     accessToken,
