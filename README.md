@@ -30,9 +30,16 @@ mkdir credentials
 mkdir documents
 ```
 
+### Inserir o pem a ser utilizado dentro da pasta credentials:
+
+```sh
+cp ../ic_svarandas.key.pem credentials/ic_svarandas.key.pem
+
+```
+
 ### Criar um arquivo .env semelhante ao .env.example e setar as urls e credenciais (omitinndo por segurança)
 ```
-SERVICE_ACCOUNT=xxxxxxx
+SERVICE_ACCOUNT=xxxxxxx //relaciona-se co xxxxxxx.key.pem
 TENANT=xxxxxxxxxx
 IDENTITY_URL=https://xxxxxx.io
 ACESSO_SERVICE_API_URL=https://xxxxxxx/api/v1/service
