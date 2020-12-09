@@ -8,7 +8,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 var app = express();
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 80;
 
 
 // enable files upload
