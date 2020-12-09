@@ -40,14 +40,21 @@ app.get('/api/health', function (req, res) {
 app.post('/api/envelope', async function (req, res) {
     try {
         if (!req.files) {
-            res.send({
-                status: false,
+            res.json({
+                status: 500,
                 message: 'No file uploaded'
             });
         } else {
             //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
             let document = req.files.document;
             let body = req.body;
+
+            if(!body.name || !body.cpf){
+                res.json({
+                    status: 500,
+                    message: 'Name and cpf are required fields'
+                });
+            }
 
             //Use the mv() method to place the file in upload directory (i.e. "uploads")
             document.mv('./documents/' + document.name);
@@ -69,7 +76,4 @@ app.post('/api/envelope', async function (req, res) {
     } catch (err) {
         res.status(500).send(err);
     }
-
-
-
 });
