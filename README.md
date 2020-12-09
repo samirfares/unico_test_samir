@@ -37,7 +37,7 @@ cp ../ic_svarandas.key.pem credentials/ic_svarandas.key.pem
 
 ```
 
-### Criar um arquivo .env semelhante ao .env.example e setar as urls e credenciais (omitinndo por segurança)
+### Criar um arquivo .env semelhante ao .env.example e setar as urls e credenciais (omitindo por segurança)
 ```
 SERVICE_ACCOUNT=xxxxxxx //relaciona-se com xxxxxxx.key.pem
 TENANT=xxxxxxxxxx
@@ -70,12 +70,21 @@ curl --location --request GET 'http://34.69.203.102/api/health' \
 ###### Response
 ```json
     {
-        status: 200,
-        message: "Server Healthy"
+        "status": 200,
+        "message": "Server Healthy"
     }
 ```
 
 ### [POST] ../api/envelope
+    Create an envelope on Acesso API.
+
+```json
+{
+    "document": [File] required,
+    "name": String required, name of the document subscriber
+    "cpf": String required, cpf of the document subscriber
+}
+```
 
 ###### Request
 
@@ -136,10 +145,10 @@ curl --location --request POST 'http://34.69.203.102/api/envelope' \
 
 ### Sugerir arquitetura para colocar o sistema em produção.
 
-- Acredito que uma arquitetura de microservicos seja a mais adequada, por 2 motivos, isolar a parte de autenticação do sistema que tende a ser chamada muitas vezes de maneira desnessária por mal uso dos clientes. E poder escalar apenas as partes do sistemma que mais convém e assim economizar recursos. Alem disso, acredito um banco relacional centralizado, e tambémm um servidor de cache Redis central se faz necessário para trazer dados que são requisitados com uma certa frequencia sem onerar o DB. 
+- Acredito que uma arquitetura de microserviços seja a mais adequada, por 2 motivos, isolar a parte de autenticação do sistema que tende a ser chamada muitas vezes de maneira desnessária por mal uso dos clientes. E poder escalar apenas as partes do sistema que mais convém e assim economizar recursos. Alem disso, acredito um banco relacional centralizado, e também um servidor de cache Redis central se faz necessário para trazer dados que são requisitados com uma certa frequencia sem onerar o DB. 
 Implementaria também algum sistema de fila, como RabbitMq, Bull ou SQS, para organizar operações de escrita(para processamento posterior em caso de alta carga), e também implentaria um sistema de rate limiting.
 
 ### Sugerir novas funcionalidades para o sistema.
 
 - Verifiquei que as seguintes operações existem na API e estariam prontas para integração:Busca de envelopes, Cancelamento de Envelope, Consulta de Arquivo, Consulta do Conjunto de Evidências, Criação de envelope por Modelo, Consulta dos Dados de Modelo, Criação de Contatos. Então essas funcionalidades já poderiam ser suportadas.
-O endpoint atual de criação de envelope é muito engessado no sistema que eu fiz(devido aos requisitos simples do teste). Eu deixaria ele mais robusto e configurável. Podendo mandar para mais assinnantes, enviar mais documentos dentro do envelope, etc. Outra possibilidade seria integrar com uma base de dados do próprio cliente. Enfim como esse sistema é um simples "Wrapper" para as APIS da Unico, eu não vejo mais funncionalidades possíveis além de integrar de fato com um sistema externo, ou expor novas integrações existentes das APIs já citadas.
+O endpoint atual de criação de envelope é muito engessado no sistema que eu fiz(devido aos requisitos simples do teste). Eu deixaria ele mais robusto e configurável. Podendo mandar para mais assinantes, enviar mais documentos dentro do envelope, etc. Outra possibilidade seria integrar com uma base de dados do próprio cliente. Enfim como esse sistema é um simples "Wrapper" para as APIS da Unico, eu não vejo mais funcionalidades possíveis além de integrar de fato com um sistema externo, ou expor novas integrações existentes das APIs já citadas.

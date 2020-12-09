@@ -30,6 +30,10 @@ app.use(bodyParser.urlencoded({
 app.listen(port);
 console.log('Server started! At http://localhost:' + port);
 
+
+/*
+   Check the server health, return status 200 if API is running
+*/
 app.get('/api/health', function (req, res) {
     res.status(200).json({
         status: 200,
@@ -37,6 +41,17 @@ app.get('/api/health', function (req, res) {
     });
 });
 
+/*
+
+
+Create an envelope on Acesso API.
+{
+    document: [File] required,
+    name: String required, name of the document subscriber
+    cpf: String required, cpf of the document subscriber
+}
+
+*/
 app.post('/api/envelope', async function (req, res) {
     try {
         if (!req.files) {
@@ -45,7 +60,6 @@ app.post('/api/envelope', async function (req, res) {
                 message: 'No file uploaded'
             });
         } else {
-            //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
             let document = req.files.document;
             let body = req.body;
 
@@ -55,8 +69,7 @@ app.post('/api/envelope', async function (req, res) {
                     message: 'Name and cpf are required fields'
                 });
             }
-
-            //Use the mv() method to place the file in upload directory (i.e. "uploads")
+            //move file to documents folder
             document.mv('./documents/' + document.name);
 
             let auth = await AcessoService.auth();
